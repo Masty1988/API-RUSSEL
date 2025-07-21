@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
 });
 
 // ✅ PUT /catways/:id/reservations
-router.put("/:idReservation", async (req, res) => {
+router.put("/:idReservation", verifyToken, async (req, res) => {
   const update = {
     clientName: req.body.clientName,
     boatName: req.body.boatName,
@@ -48,7 +48,7 @@ router.put("/:idReservation", async (req, res) => {
 });
 
 // ✅ DELETE /catways/:id/reservations/:idReservation
-router.delete("/:idReservation", async (req, res) => {
+router.delete("/:idReservation", verifyToken, async (req, res) => {
   await Reservation.findByIdAndDelete(req.params.idReservation);
   res.status(200).json({ message: "Réservation supprimée" });
 });

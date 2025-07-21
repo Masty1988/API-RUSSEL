@@ -16,7 +16,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // ✅ POST /catways
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
   try {
     const newCatway = new Catway(req.body);
     await newCatway.save();
@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
 });
 
 // ✅ PUT /catways/:id
-router.put("/:id", async (req, res) => {
+router.put("/:id", verifyToken, async (req, res) => {
   const update = { catwayState: req.body.catwayState }; // seul l'état est modifiable
   const updated = await Catway.findByIdAndUpdate(req.params.id, update, {
     new: true,
@@ -37,7 +37,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // ✅ DELETE /catways/:id
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   await Catway.findByIdAndDelete(req.params.id);
   res.status(200).json({ message: "Catway supprimé" });
 });

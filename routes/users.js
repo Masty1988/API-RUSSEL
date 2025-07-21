@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const verifyToken = require("../middlewares/verifyToken");
 
 /* GET users listing. */
 router.get("/", async (req, res) => {
@@ -51,7 +52,7 @@ router.post("/login", async (req, res) => {
 });
 
 // 🔍 GET /users/:email → Récupérer les détails d’un utilisateur
-router.get("/:email", async (req, res) => {
+router.get("/:email", verifyToken, async (req, res) => {
   try {
     const user = await User.findOne({ email: req.params.email });
     if (!user)
@@ -63,7 +64,7 @@ router.get("/:email", async (req, res) => {
 });
 
 // ✏️ PUT /users/:email → Modifier un utilisateur
-router.put("/:email", async (req, res) => {
+router.put("/:email", verifyToken, async (req, res) => {
   try {
     const updatedUser = await User.findOneAndUpdate(
       { email: req.params.email },
@@ -79,7 +80,7 @@ router.put("/:email", async (req, res) => {
 });
 
 // ❌ DELETE /users/:email → Supprimer un utilisateur
-router.delete("/:email", async (req, res) => {
+router.delete("/:email", verifyToken, async (req, res) => {
   try {
     const deletedUser = await User.findOneAndDelete({
       email: req.params.email,
