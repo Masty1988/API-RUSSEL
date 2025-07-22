@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const reservationSchema = mongoose.Schema({
-  catwayNumber: { type: Number, required: true },
+  catwayNumber: { type: String, required: true },
   clientName: { type: String, required: true },
   boatName: { type: String, required: true },
   startDate: { type: Date, required: true },

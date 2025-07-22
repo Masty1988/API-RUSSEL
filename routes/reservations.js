@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true }); // mergeParams = récupère le :id du parent
 const Reservation = require("../models/reservations");
+const verifyToken = require("../middlewares/verifyToken");
 
 // ✅ GET /catways/:id/reservations
 router.get("/", async (req, res) => {

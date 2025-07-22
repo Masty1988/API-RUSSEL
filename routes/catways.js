@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Catway = require("../models/Catway");
+const verifyToken = require("../middlewares/verifyToken");
 
 // ✅ GET /catways
 router.get("/", async (req, res) => {
