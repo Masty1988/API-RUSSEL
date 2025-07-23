@@ -1,0 +1,33 @@
+<%- include('layout') %>
+
+    <section>
+        <h2>Bienvenue <%= user.username %> !</h2>
+        <p>Email : <%= user.email %>
+        </p>
+        <p>📅 Nous sommes le <strong>
+                <%= date %>
+            </strong></p>
+    </section>
+
+    <hr>
+
+    <section>
+        <h3>📋 Réservations en cours</h3>
+
+        <% if (reservations && reservations.length> 0) { %>
+            <ul>
+                <% reservations.forEach(r=> { %>
+                    <li>
+                        <strong>
+                            <%= r.boatName %>
+                        </strong> —
+                        Client : <%= r.clientName %> |
+                            Du <%= new Date(r.startDate).toLocaleDateString() %> au <%= new
+                                    Date(r.endDate).toLocaleDateString() %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } else { %>
+                <p>Aucune réservation pour l’instant.</p>
+                <% } %>
+    </section>
